@@ -1,0 +1,26 @@
+/* ---------------------------------------------------------------------------
+   01-fonts.css
+   VERBATIM from ampy.se — the inline <style> block at byte offset ~4723 of the
+   homepage HTML (the FIRST style block in the document, before every <link>).
+
+   Only change: the absolute URL
+     https://ampy.se/wp-content/uploads/fonts/Outfit-VariableFont_wght.woff2
+   is rewritten to the local, byte-identical copy in assets/fonts/.
+
+   NOTE (verified 2026-08-05): ampy.se declares TWO competing Outfit sets.
+   The static per-weight faces in 04-theme-style-ampy.css
+   (…/core-framework/fonts/Outfit-300.woff2 etc.) return HTTP 404 on the live
+   site — document.fonts reports every one of them as "unloaded". THIS
+   variable-font set is declared later in the document, so it wins the
+   @font-face cascade and is what actually renders on ampy.se.
+   --------------------------------------------------------------------------- */
+
+@font-face{font-display:swap;font-family:"Outfit";src:url("../fonts/Outfit-VariableFont_wght.woff2")format("woff2-variations");font-weight:100;font-style:normal;}
+@font-face{font-display:swap;font-family:"Outfit";src:url("../fonts/Outfit-VariableFont_wght.woff2")format("woff2-variations");font-weight:200;font-style:normal;}
+@font-face{font-display:swap;font-family:"Outfit";src:url("../fonts/Outfit-VariableFont_wght.woff2")format("woff2-variations");font-weight:300;font-style:normal;}
+@font-face{font-display:swap;font-family:"Outfit";src:url("../fonts/Outfit-VariableFont_wght.woff2")format("woff2-variations");font-weight:400;font-style:normal;}
+@font-face{font-display:swap;font-family:"Outfit";src:url("../fonts/Outfit-VariableFont_wght.woff2")format("woff2-variations");font-weight:500;font-style:normal;}
+@font-face{font-display:swap;font-family:"Outfit";src:url("../fonts/Outfit-VariableFont_wght.woff2")format("woff2-variations");font-weight:600;font-style:normal;}
+@font-face{font-display:swap;font-family:"Outfit";src:url("../fonts/Outfit-VariableFont_wght.woff2")format("woff2-variations");font-weight:700;font-style:normal;}
+@font-face{font-display:swap;font-family:"Outfit";src:url("../fonts/Outfit-VariableFont_wght.woff2")format("woff2-variations");font-weight:800;font-style:normal;}
+@font-face{font-display:swap;font-family:"Outfit";src:url("../fonts/Outfit-VariableFont_wght.woff2")format("woff2-variations");font-weight:900;font-style:normal;}

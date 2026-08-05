@@ -1,0 +1,16 @@
+/* ---------------------------------------------------------------------------
+   07-post-15096-section-rule.css
+   VERBATIM from ampy.se — den ENDA regeln i
+     wp-content/cache/flying-press/d20f91c9b2b6.post-15096.min.css   (link @ byte 27487)
+   som faktiskt träffar Certificates-blocket.
+
+   Att det är den enda är inte en gissning: den fullständiga computed-style-
+   diffen (9160 egenskaper × 20 element, live vs klon) lämnade exakt den här
+   egenskapen som skillnad när övriga lager var på plats. Se docs/MEASUREMENTS.md.
+
+   Regeln är INERT på live — scroll-snap-type är "none" på html, body och
+   #brx-content, så scroll-snap-align har ingen visuell effekt. Den tas med
+   ändå för att computed style ska bli 100 % identisk.
+   --------------------------------------------------------------------------- */
+
+.brxe-section{scroll-snap-align:end}

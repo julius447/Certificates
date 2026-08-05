@@ -1,0 +1,16 @@
+/* ---------------------------------------------------------------------------
+   03-bricks-color-palettes.css
+   VERBATIM from ampy.se — inline <style id="bricks-color-palettes-inline">
+   at byte offset 25832 (mellan frontend-light-layer och global-variables).
+
+   KRITISK: här definieras --white. Utan den blir
+     .certificates__div.brxe-div { background-color: var(--white) }
+   ogiltig vid beräkning, och de VITA korten försvinner helt (regeln har
+   högre specificitet än .brxe-56f1bc{background-color:#fff}, så den lägre
+   regeln träder INTE in som fallback).
+
+   ampy.se upprepar exakt samma palett i <style id="bricks-style-manager-inline">
+   vid byte 28301 — identiska värden, ingen renderingsskillnad, utelämnad här.
+   --------------------------------------------------------------------------- */
+
+:root {--white: hsl(0 0% 100%);--color-2: hsl(216 100% 98%);--color-3: hsl(237 69% 12%);--color-4: hsl(0 0% 91%);--color-5: hsl(144 50% 40%);--color-6: hsl(0 0% 74%);--color-7: hsl(189 43% 56%);--color-8: hsl(0 0% 12%);--color-9: hsl(80 100% 99%);--color-10: hsl(171 95% 41%);--color-11: hsl(185 66% 90%);--color-12: hsl(144 50% 40%);--color-13: hsl(191 100% 89%);--color-14: hsl(220 48% 22%);--color-15: hsl(171 100% 33%);--color-16: hsl(146 33% 92%);--color-17: hsl(0 0% 82%);--color-18: hsl(237 47% 20%);--color-19: hsl(0 0% 92%);--color-20: hsl(0 0% 20%);--color-21: hsl(144 100% 67%);--color-22: hsl(144 50% 40%);--color-23: hsl(146 71% 93%);--color-24: hsl(237 50% 31%);--color-25: hsl(171 95% 41%);--color-26: hsl(191 100% 86%);--color-27: hsl(0 0% 85%);--color-28: hsl(0 0% 62%);--color-29: hsl(192 100% 95%);--color-30: hsl(0 0% 75% / 0.45);--brightgreen: #1BD365;--80%-white: hsla(0, 0%, 100%, 0.8);--bricks-color-otihgr: #e4f1ea;--blue: #4b85fd;--blueishwhite: #eaf0fb;}
