@@ -18,8 +18,8 @@ Baslinjen (1:1-klonen av dagens block) ligger kvar orörd på `/Certificates/`.
 | Kortstorlek | 113,6 × 90,6 px | **236 × 113 px** — 2,6× ytan |
 | Kortproportion | 1,25:1 | **2,09:1** |
 | Synligt logotypbläck | 14–40 px högt | **28–70 px**, optiskt utjämnat |
-| Rubrik | h3 "Certifikat och partners" | **h2** "Behörigheten bakom varje jobb" |
-| Brödtext | 143 tecken, 4 rader på mobil | **78 tecken, 2 rader**, styrd brytning |
+| Rubrik | h3 "Certifikat och partners", 32 px | **h2** "Behörigheten bakom varje jobb", **36 px** — sajtens norm |
+| Brödtext | 143 tecken, 4 rader på mobil, 14,12 px | **78 tecken, 2 rader**, styrd brytning, 16,12 px |
 | Blockets höjd | 354,58 px | **354 px** — oförändrad |
 | Gradient | `90deg #090b32 → #5eb1bf` | **identisk** |
 | Vågen | 1193×568 klippt till 1193×319 → kantig | **egen, kan aldrig klippas** |
@@ -29,7 +29,7 @@ Borttagna: Skatteverket, Naturvårdsverket, Rexel (den senare hade dessutom en
 
 ---
 
-## De fyra besluten bakom designen
+## De fem besluten bakom designen
 
 ### 1. Höjden är låst — så luften växlades mot kortyta
 Blockets totalhöjd fick inte ändras, men korten behövde bli större. 46,4 px togs
@@ -75,7 +75,34 @@ Elsäkerhetsverket är tunn text plus en öppen ring (0,43).
 Ett värde per logotyp i CSS:en — enkelt att finjustera när de riktiga filerna
 kommer.
 
-### 4. Kortproportionen styrs via bredden, inte höjden
+### 4. Typografin är synkad med resten av ampy.se
+Uppmätta sektionsrubriker på startsidan:
+
+| Sektion | Desktop | Mobil |
+|---|---|---|
+| "Prata med en elektriker inom 60 sekunder!" | 40 px w500 | 24 px |
+| "Vi finns där du finns" | 40 px w600 | 32 px |
+| "Din elektriker för hela hemmet" | 38 px w500 | 28 px |
+| **"Så funkar det"** | **36 px w400 lh1,20** | **26,76 px** |
+| "Vad säger dina grannar om Ampy?" | 36 px w400 | 24,96 px |
+| ~~"Certifikat och partners" (gamla blocket)~~ | ~~32 px w400~~ | ~~24,54 px~~ |
+
+Blocket låg alltså **under hela sajtens spann** — minsta sektionsrubriken på
+sidan. Nu används exakt samma token, vikt och radhöjd som "Så funkar det", som
+är närmaste syskon (redaktionell sektion, inte CTA): `--aptext-2xl`, w400,
+lh 1,2 → **36 px desktop / 26,76 px mobil**.
+
+Brödtexten låg redan rätt på desktop (`--aptext-m` = 18 px w300, samma som
+testimonial- och main-cta-sektionerna). **På mobil gjorde den inte det:** det
+gamla blocket renderade 14,12 px — minst på hela sidan — eftersom dess
+mobilregel pekade på ett odefinierat `--text-m` och därför föll tillbaka på
+body-storleken. Här är den 16,12 px, i linje med sajten.
+
+Rubriken har `text-wrap:balance`. Det är verkningslöst när den får plats på en
+rad (≥1100 px), men räddar de två lägen där den bryter: 901–1000 px gav änkan
+"jobb" (379 px mot 63 px) och mobilen gav 306 px mot 51 px.
+
+### 5. Kortproportionen styrs via bredden, inte höjden
 Blockhöjden är låst, så korthöjden (113 px) kan inte ändras. Märkesgriden fick
 därför ett tak på 492 px: **236 × 113 = 2,09:1**. Överskottet går till
 textkolumnen.

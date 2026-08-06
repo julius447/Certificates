@@ -78,19 +78,40 @@
   min-width:0;
   color:#fff;
 }
+/* TYPOGRAFISK RÖD TRÅD MED RESTEN AV ampy.se.
+   Uppmätta sektionsrubriker på startsidan @1440:
+     "Prata med en elektriker inom 60 sekunder!"  40px w500
+     "Vi finns där du finns"                      40px w600
+     "Din elektriker för hela hemmet"             38px w500
+     "Så funkar det"                              36px w400  ← närmaste syskon
+     "Vad säger dina grannar om Ampy?"            36px w400
+     "Certifikat och partners" (detta block)      32px w400  ← minst på hela sidan
+   Blocket låg alltså under hela sajtens spann. Nu sätts exakt samma token,
+   vikt och radhöjd som "Så funkar det" — samma sorts sektion (redaktionell,
+   inte CTA): --aptext-2xl = 36px desktop / 26,76px mobil, w400, lh 1,2. */
 .cert__heading{
   margin:0;
-  font-size:var(--aptext-xl);
+  font-size:var(--aptext-2xl);
   font-weight:400;
-  line-height:1.3;
+  line-height:1.2;
   color:#fff;
   letter-spacing:-.01em;
+  /* Verkningslös när rubriken får plats på en rad (≥1100px), men räddar de två
+     lägen där den bryter: 901–1000px gav änkan "jobb" (379px mot 63px) och
+     mobilen gav 306px mot 51px. Brödtexten ska INTE ha balance — dess brytning
+     är ritad med max-width, och balance skulle dela raderna jämnt igen. */
+  text-wrap:balance;
 }
 /* Radbrytningen är RITAD, inte överlämnad till text-wrap:balance (som delade
    raderna jämnt och bröt mitt i "behörig elektriker"). Måttet nedan är satt i
    ch så att brytpunkten följer med när clamp() ändrar typsnittsstorleken:
    rad 1 "Samma krav på varje jobb: behörig elektriker,"
    rad 2 "registrerad elfirma, försäkrade." */
+/* Brödtexten ligger redan rätt mot sajten: --aptext-m = 18px desktop /
+   16,12px mobil, w300 — samma som testimonial- och main-cta-sektionerna.
+   OBS: det GAMLA blocket renderade 14,12px på mobil, minst på hela sidan,
+   för att dess mobilregel pekade på ett odefinierat --text-m och därför föll
+   tillbaka på body-storleken. Den buggen finns inte här. */
 .cert__text{
   margin:var(--apspace-xs) 0 0;
   font-size:var(--aptext-m);
@@ -259,7 +280,6 @@
    vid 375px hamnar rubriken tillbaka på en rad. 390px renderar oförändrat. */
 @media (max-width:389px){
   .cert{padding-left:18px;padding-right:18px}
-  .cert__heading{text-wrap:balance}   /* tar bort änkan "jobb" vid 360px */
 }
 
 @media (prefers-reduced-motion:reduce){
