@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Bläckmätare — kontrollera logotypfiler</title></head><body>
+<h1 style="font:500 16px system-ui">Bläckmätare</h1>
+<p style="font:300 14px/1.5 system-ui;max-width:60ch">Kontrollerar hur stor andel av varje logotypfil som faktiskt är bläck.
+En fil ska ha <b>inkFracW och inkFracH = 1</b> vid alpha&gt;8 — då är den beskuren till bläcket och CSS-höjden motsvarar synlig höjd.
+Ligger värdet under 1 har filen inbyggd luft, och logotypen renderas mindre än den ser ut att vara satt till.
+Jämför även alpha&gt;200: faller inkFracH kraftigt där finns svaga artefakter (t.ex. en ram) i filen.</p>
+<pre id="out">mäter…</pre>
+<script>
+const LOGOS = [
+  {k:'in',   f:'assets/img/installatorsforetagen.svg', vb:[721,188.2]},
+  {k:'esv',  f:'assets/img/elsakerhetsverket.svg',     vb:[113,113]},
+  {k:'id06', f:'assets/img/id06.svg',                  vb:[159,63]},
+  {k:'th',   f:'assets/img/trygg-hansa.svg',           vb:[178,106]}
+];
+const R = 1000;
+let TH = 8; // renderingsbredd för mätning
+
+function load(src){return new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=src;});}
+
+async function run(th){ TH=th;
+  const rows = [];
+  for (const L of LOGOS){
+    const img = await load('../assets/img/' + L.f.replace('assets/img/','') + '?cb=' + Date.now());
+    const ar = img.naturalWidth/img.naturalHeight;  // läs FILENS mått, inte hårdkodat
+    const w = R, h = Math.round(R/ar);
+    const c = document.createElement('canvas'); c.width=w; c.height=h;
+    const ctx = c.getContext('2d', {willReadFrequently:true});
+    ctx.clearRect(0,0,w,h);
+    ctx.drawImage(img,0,0,w,h);
+    const d = ctx.getImageData(0,0,w,h).data;
+    let minX=w, minY=h, maxX=-1, maxY=-1;
+    for (let y=0;y<h;y++){
+      for (let x=0;x<w;x++){
+        const a = d[(y*w+x)*4+3];
+        if (a > TH){ if(x<minX)minX=x; if(x>maxX)maxX=x; if(y<minY)minY=y; if(y>maxY)maxY=y; }
+      }
+    }
+    const iw = maxX-minX+1, ih = maxY-minY+1;
+    rows.push({
+      k:L.k,
+      intrinsic:img.naturalWidth.toFixed(1)+'x'+img.naturalHeight.toFixed(1), boxAspect:+ar.toFixed(3),
+      inkFracW:+(iw/w).toFixed(4),      // hur stor andel av boxens BREDD som är bläck
+      inkFracH:+(ih/h).toFixed(4),      // ...och av HÖJDEN
+      inkAspect:+(iw/ih).toFixed(3),
+      padLeft:+(minX/w).toFixed(4), padRight:+((w-1-maxX)/w).toFixed(4),
+      padTop:+(minY/h).toFixed(4), padBottom:+((h-1-maxY)/h).toFixed(4)
+    });
+  }
+  return rows;
+}
+(async()=>{ const o={};
+ for(const th of [8,64,128,200]){ o['alpha>'+th] = await run(th); }
+ window.__ink=o; document.getElementById('out').textContent=JSON.stringify(o,null,1); })();
+</script></body></html>

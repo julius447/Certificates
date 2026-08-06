@@ -86,15 +86,25 @@
   color:#fff;
   letter-spacing:-.01em;
 }
+/* Radbrytningen är RITAD, inte överlämnad till text-wrap:balance (som delade
+   raderna jämnt och bröt mitt i "behörig elektriker"). Måttet nedan är satt i
+   ch så att brytpunkten följer med när clamp() ändrar typsnittsstorleken:
+   rad 1 "Samma krav på varje jobb: behörig elektriker,"
+   rad 2 "registrerad elfirma, försäkrade." */
 .cert__text{
   margin:var(--apspace-xs) 0 0;
   font-size:var(--aptext-m);
   font-weight:300;
   line-height:1.7;
   color:#fff;
-  max-width:38ch;
-  text-wrap:balance;                    /* jämnar ut raderna — inga ensamma ord */
+  max-width:34ch;   /* = 402px @18px. Rad 1 t.o.m. "elektriker," är 360px;
+                       nästa ord ("registrerad") skulle kräva 453px → bryter rätt. */
 }
+/* 1,7 gjorde de två raderna till en jämnt spridd stapel: gapet rubrik→text var
+   bara 1,63× gapet mellan textraderna, så rubriken ägde inte sin paragraf.
+   1,55 binder ihop raderna till ett block och tar kvoten till 2,15×.
+   Blockhöjden påverkas inte — griden (242px) är den som styr. */
+@media (min-width:901px){ .cert__text{line-height:1.55} }
 
 /* --- märkesgriden -------------------------------------------------------- */
 /* Korten ska vara mindre avlånga (ägardirektiv 2026-08-06). Höjden är låst av
@@ -104,10 +114,15 @@
 .cert__marks{
   flex:1 1 0;
   min-width:0;
-  max-width:514px;
+  max-width:492px;          /* smalare kort enligt direktiv: 249 → 236px */
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:16px;
+  /* Kolumngapet ska vara ≥ hörnradien (20px), annars läses kanalen mellan
+     korten som timglasformad där radierna äter upp den. 19,8px ligger dessutom
+     på ap-skalan; 16px gjorde det inte. Radgapet måste stå kvar på 16 —
+     20px där ger 358px och spräcker höjdlåset. */
+  column-gap:var(--apspace-s);
+  row-gap:16px;
 }
 
 .cert__mark{
@@ -115,11 +130,18 @@
   align-items:center;
   justify-content:center;
   height:var(--cert-card-h,113px);
-  padding:16px 20px;
+  padding:16px 18px;
   background:var(--white);
   border-radius:var(--apradius-l);
   text-decoration:none;
-  box-shadow:0 2px 10px rgba(9,11,50,.10), 0 12px 34px rgba(9,11,50,.10);
+  /* Den inre hårlinjen är inte dekoration. Kontrasten mellan kortvitt och
+     bakgrunden varierar 3× över blocket: 5,39:1 vid det övre vänstra kortet
+     mot 1,81:1 vid Trygg-Hansa nere till höger, där gradienten är som ljusast.
+     Utan kanten fransar väggen upp i just det hörnet och de fyra korten slutar
+     läsas som en uppsättning. Kanten är underlagsoberoende. */
+  box-shadow:0 2px 10px rgba(9,11,50,.10),
+             0 12px 34px rgba(9,11,50,.10),
+             inset 0 0 0 1px rgba(9,11,50,.07);
   transition:transform .25s ease, box-shadow .25s ease;
 }
 .cert__mark:hover,
@@ -129,38 +151,67 @@
 }
 .cert__mark:focus-visible{outline:2px solid #fff;outline-offset:3px}
 
-/* OPTISK NORMALISERING (kärnan i uppdraget).
-   De fyra lockuperna har vitt skilda proportioner:
-     Installatörsföretagen 3,83:1 · Elsäkerhetsverket 1,00:1 · ID06 2,52:1 · Trygg-Hansa 1,68:1
-   Att sätta samma HÖJD gör den kvadratiska ESV-loggan dubbelt så tung som IN.
-   Att sätta samma BREDD gör tvärtom IN till en tunn strimma.
-   Därför sätts höjden per logotyp, avvägd mot lockupens bredd så att den
-   optiska massan blir jämn. Ett värde per logga — enkelt att finjustera. */
+/* OPTISK NORMALISERING PÅ BLÄCK (kärnan i uppdraget).
+   ---------------------------------------------------------------------------
+   Steg 1 — filerna beskurna till bläcket. Mätt i canvas hade de inbyggd luft:
+     Trygg-Hansa  68,1% av höjden var TOM  → bara 31,9% bläck
+     Elsäkerhetsv 17,4% tom                → 82,6% bläck
+     ID06          9,6% tom                → 90,4% bläck
+     Installatörsf 0% tom                  → 100% bläck
+   Det var HELA orsaken till att Trygg-Hansa såg liten ut och IN stor: vid
+   56px box visades bara 17,9px Trygg-Hansa-bläck, mot 40px för IN. Alla fyra
+   viewBox:ar är nu beskurna till bläckrutan, så CSS-höjden = synlig höjd.
+
+   Steg 2 — lika optisk MASSA, inte lika yta. Lika yta gav 2,3% spridning på
+   papperet men såg fortfarande ojämnt ut, för upplevd tyngd beror också på hur
+   TÄT och MÖRK logotypen är. Mätt bläckmassa (summan av 1−luminans över alla
+   bläckpixlar) vid lika yta:
+     Trygg-Hansa 1090 (medelsvärta 0,61) · Installatörsf. 1076 (0,56)
+     ID06 1039 (0,53) · Elsäkerhetsverket 513 (0,43)  ← halva massan
+   Trygg-Hansa är fet svart versaltext; Elsäkerhetsverket är tunn text plus en
+   öppen ring med mycket luft inuti bläckrutan. Höjderna nedan kompenserar för
+   det: ESV upp, Trygg-Hansa ner.
+
+   ID06 bär dessutom en SVAG RAM inbakad i PNG:n som inte hör till logotypen.
+   Vid stark bläcktröskel (alpha>200) faller dess bläckhöjd till 79,6% och
+   proportionen går 2,68 → 3,21:1. Ramen kan inte beskäras bort utan att skäras
+   itu, så höjden kompenseras i stället. [GAP] filen bör ersättas.
+   --------------------------------------------------------------------------- */
 .cert__mark img{
   width:auto;
   max-width:100%;
   object-fit:contain;
   height:var(--lh);
 }
-.cert__mark--in   {--lh:40px}   /* 3,83:1 → 153×40  yta 6128 */
-.cert__mark--esv  {--lh:70px}   /* 1,00:1 →  70×70  yta 4900 */
-.cert__mark--id06 {--lh:48px}   /* 2,52:1 → 121×48  yta 5808 */
-.cert__mark--th   {--lh:56px}   /* 1,68:1 →  94×56  yta 5264 */
-/* optisk spridning max→min: 22%. Bredaste loggan (IN) fyller 73% av
-   kortets innerbredd — luft kvar på sidorna även i det smalare kortet. */
+.cert__mark--in   {--lh:35px}   /* 3,824:1 → 134×35 — referensen, orörd */
+.cert__mark--esv  {--lh:70px}   /* 1,129:1 →  79×70 — upp, halva massan */
+.cert__mark--id06 {--lh:43px}   /* 2,684:1 → 115×43 — ramen är en hårlinje som
+                                   blåser upp bbox men nästan ingen massa, så
+                                   46px översköt: massa 1264 mot IN:s 1076.
+                                   43px ger 1105 = paritet. */
+.cert__mark--th   {--lh:28px}   /* 5,147:1 → 144×28 — ner, tyngst och svartast.
+                                   Bonus: 144px är källbildens nativa bredd,
+                                   så den slutar skalas upp och blir skarpare. */
 
 /* ===========================================================================
    MOBIL — layoutspråket från dagens block behålls medvetet:
    centrerad text, staplat, samma kortstil. Bara innehållet ändras (4 märken).
    =========================================================================== */
-@media (max-width:780px){
+/* Brytpunkten är höjd 780 → 900px. Mellan 781 och 905px låg blocket kvar i
+   tvåkolumnsläge medan kolumnen blev för smal: Trygg-Hansa klipptes av
+   max-width:100% från 155px till 126px bredd (synligt bläck ner till ~24px) —
+   exakt den logga hela normaliseringen byggdes för. Rubriken fick dessutom
+   änkan "jobb" runt 850px. 900px löser båda. */
+@media (max-width:900px){
   /* mobilen behåller dagens lodräta luft (--apspace-2xl) — där finns inget
      höjdproblem att lösa, och layoutspråket ska vara oförändrat */
   .cert{--cert-pad-y:var(--apspace-2xl)}
   .cert__inner{
     flex-direction:column;
     align-items:center;
-    gap:var(--apspace-l);
+    /* mer luft mellan paragrafen och korten (ägardirektiv) — blocket blir
+       något mer avlångt, vilket balanserar logotypernas dominans */
+    gap:var(--apspace-xl);
   }
   .cert__intro{
     flex:none;
@@ -175,19 +226,40 @@
   .cert__marks{
     flex:none;
     width:100%;
-    max-width:none;      /* desktoptaket på 514px gäller INTE här — mobilen är godkänd och rörs inte */
-    gap:12px;
+    /* Taket måste finnas kvar även staplat, annars blir korten 344×96 (3,6:1)
+       runt 780px — enorma vita plattor kring en liten logga. 390 och 360 är
+       helt oberörda: griden är 335 resp. 307px där, alltså under taket. */
+    max-width:492px;
+    margin-inline:auto;
+    /* 12px bröt samma regel som gäller på desktop: gapet måste vara ≥ radien
+       (16,3px här), annars har kanalen mellan korten ingen rak sträcka och
+       läses timglasformad. Blocket växer 4px — mobilhöjden är inte låst. */
+    gap:16px;
   }
   .cert__mark{
     height:var(--cert-card-h-mobile,96px);
     padding:12px 14px;
   }
-  /* samma optiska avvägning, nedskalad till mobilkortets bredd (~160px) */
-  .cert__mark--in   {--lh:32px}
-  .cert__mark--esv  {--lh:56px}
-  .cert__mark--id06 {--lh:38px}
-  .cert__mark--th   {--lh:44px}
+  /* Samma bläck-normalisering nedskalad till mobilkortet (~162×96px).
+     Måste räknas om efter beskärningen: med de gamla värdena hade
+     Trygg-Hansa hoppat från 14px till 44px synligt bläck.
+     Lika yta ~2300px²: h = √(2300 / proportion) */
+  .cert__mark--in   {--lh:25px}   /* 3,824:1 →  96×25 — referensen */
+  .cert__mark--esv  {--lh:56px}   /* 1,129:1 →  63×56 — utnyttjade bara 69% av
+                                     innerhöjden mot 86% på desktop */
+  .cert__mark--id06 {--lh:30px}   /* 2,684:1 →  80×30 — ner, som på desktop */
+  .cert__mark--th   {--lh:20px}   /* 5,147:1 → 103×20 — ner, tyngst */
   .cert__glow{width:100%;right:auto;left:0;height:60%;top:70%}
+}
+
+/* SMÅ TELEFONER (iPhone SE/mini 375px, bredaste Android 360px).
+   Där föll den låsta radbrytningen tillbaka till "…behörig / elektriker" —
+   precis det ägaren ville bort från. 18px sidopadding ger texten de ~20px den
+   behöver: vid 360px blir raderna 321/224px, alltså rätt brytning igen, och
+   vid 375px hamnar rubriken tillbaka på en rad. 390px renderar oförändrat. */
+@media (max-width:389px){
+  .cert{padding-left:18px;padding-right:18px}
+  .cert__heading{text-wrap:balance}   /* tar bort änkan "jobb" vid 360px */
 }
 
 @media (prefers-reduced-motion:reduce){
