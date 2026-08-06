@@ -1,7 +1,20 @@
-# Certificates — 1:1-klon av ampy.se
+# Certificates — baslinjeklon + redesign
+
+| | Länk |
+|---|---|
+| **Redesign (v2)** — det som ska granskas | **https://julius447.github.io/Certificates/redesign/** |
+| Baslinje — 1:1-klon av dagens block | https://julius447.github.io/Certificates/ |
+
+Repot innehåller två saker: en **exakt klon** av dagens block (baslinjen, orörd)
+och en **redesign** i `redesign/`. Se [`redesign/README.md`](redesign/README.md)
+för vad som ändrats och varför.
+
+---
+
+## Baslinjen (den här mappen)
 
 Exakt reproduktion av tillitsblocket **"Certifikat och partners"** på ampy.se,
-hämtat 2026-08-05. Baslinje inför designarbetet på desktop-lådorna.
+hämtat 2026-08-05.
 
 **Ingenting är omdesignat.** Detta är enbart en klon.
 
