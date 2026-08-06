@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="sv-SE">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ampy — Certificates v2 (redesign)</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/certificates-v2.css">
+<style>
+  /* Endast granskningsverktyg — ingår INTE i leveransen till Bricks. */
+  .rev{font-family:"Outfit";max-width:1280px;margin:24px auto 0;padding:0 24px;color:#090b32}
+  .rev h1{font-size:18px;font-weight:500;margin:0 0 4px}
+  .rev p{font-size:14px;font-weight:300;margin:0 0 14px;color:#4a4d68}
+  .rev__row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .rev__btn{font:inherit;font-size:13px;font-weight:400;padding:8px 16px;border-radius:999px;
+            border:1px solid rgba(9,11,50,.18);background:#fff;color:#090b32;cursor:pointer}
+  .rev__btn[aria-pressed="true"]{background:#090b32;color:#fff;border-color:#090b32}
+  .rev__note{font-size:13px;color:#4a4d68;margin-top:10px}
+</style>
+</head>
+<body>
+
+<div class="rev">
+  <h1>Certificates v2 — tre bakgrundsförslag</h1>
+  <p>Griden, korten, logotyperna och copyn är identiska i alla tre. Bara bakgrunden skiljer.</p>
+  <div class="rev__row">
+    <button class="rev__btn" data-set="a" aria-pressed="true">A · Ljusbåge</button>
+    <button class="rev__btn" data-set="b" aria-pressed="false">B · Strömfält</button>
+    <button class="rev__btn" data-set="c" aria-pressed="false">C · Krets</button>
+  </div>
+  <p class="rev__note">Färgparet #090b32 → #5eb1bf, blockets höjd och bredd är oförändrade enligt direktiv.</p>
+</div>
+
+<!-- ====================== BLOCKET ====================== -->
+<section class="cert" data-bg="a" aria-labelledby="cert-heading">
+
+  <div class="cert__bg" aria-hidden="true">
+
+    <!-- A · LJUSBÅGE — den gamla vågens DNA, men med kammen tillbaka och en
+         tunn ljusrand längs kanten som ger formen definition.
+         preserveAspectRatio="none" gör att ingenting någonsin kan klippas. -->
+    <svg class="cert-bg-a" viewBox="0 0 1440 356" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="ga1" x1="1330" y1="30" x2="230" y2="430" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#cbf0f7" stop-opacity=".46"/>
+          <stop offset=".55" stop-color="#8fd4e0" stop-opacity=".16"/>
+          <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="ga2" x1="1400" y1="150" x2="300" y2="470" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#ffffff" stop-opacity=".30"/>
+          <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="gaEdge" x1="1440" y1="40" x2="120" y2="330" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#ffffff" stop-opacity=".55"/>
+          <stop offset=".7" stop-color="#ffffff" stop-opacity=".10"/>
+          <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,356 L0,288 C210,284 372,238 552,206 C772,167 968,116 1172,80 C1286,60 1368,48 1440,38 L1440,356 Z" fill="url(#ga1)"/>
+      <path d="M0,288 C210,284 372,238 552,206 C772,167 968,116 1172,80 C1286,60 1368,48 1440,38"
+            fill="none" stroke="url(#gaEdge)" stroke-width="1.6"/>
+      <path d="M0,356 L0,336 C240,332 424,306 624,284 C864,258 1064,224 1264,202 C1334,194 1392,188 1440,184 L1440,356 Z" fill="url(#ga2)"/>
+    </svg>
+
+    <!-- B · STRÖMFÄLT — tre tydligt separerade vågor, ljusare mot höger. -->
+    <svg class="cert-bg-b" viewBox="0 0 1440 356" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gb1" x1="1440" y1="60" x2="120" y2="360" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#b6f2ff" stop-opacity=".30"/><stop offset="1" stop-color="#b6f2ff" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="gb2" x1="1440" y1="120" x2="180" y2="410" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#ffffff" stop-opacity=".26"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="gb3" x1="1440" y1="210" x2="260" y2="450" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#8fd4e0" stop-opacity=".44"/><stop offset="1" stop-color="#8fd4e0" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,356 L0,224 C268,190 452,258 712,226 C972,194 1196,132 1440,100 L1440,356 Z" fill="url(#gb1)"/>
+      <path d="M0,356 L0,286 C288,256 492,322 748,286 C1004,250 1216,196 1440,166 L1440,356 Z" fill="url(#gb2)"/>
+      <path d="M0,356 L0,338 C308,318 528,362 788,330 C1048,298 1236,266 1440,244 L1440,356 Z" fill="url(#gb3)"/>
+    </svg>
+
+    <!-- C · KRETS — koncentriska ringar som strålar ut BAKOM logotypklustret,
+         som energi från certifieringarna. Mjukt tonade, ingen hård kant. -->
+    <svg class="cert-bg-c" viewBox="0 0 1440 356" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="gcGlow" cx="1080" cy="168" r="560" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#cbf0f7" stop-opacity=".34"/>
+          <stop offset=".6" stop-color="#8fd4e0" stop-opacity=".10"/>
+          <stop offset="1" stop-color="#8fd4e0" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="gcFade" cx="1080" cy="168" r="620" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#ffffff" stop-opacity=".55"/>
+          <stop offset=".55" stop-color="#ffffff" stop-opacity=".22"/>
+          <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="gcWave" x1="1440" y1="240" x2="180" y2="420" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#8fd4e0" stop-opacity=".40"/><stop offset="1" stop-color="#8fd4e0" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <rect width="1440" height="356" fill="url(#gcGlow)"/>
+      <g fill="none" stroke="url(#gcFade)">
+        <circle cx="1080" cy="168" r="150" stroke-width="1.2"/>
+        <circle cx="1080" cy="168" r="248" stroke-width="1.2"/>
+        <circle cx="1080" cy="168" r="352" stroke-width="1.1"/>
+        <circle cx="1080" cy="168" r="464" stroke-width="1"/>
+        <circle cx="1080" cy="168" r="584" stroke-width="1"/>
+      </g>
+      <path d="M0,356 L0,332 C300,314 560,354 840,324 C1080,298 1250,270 1440,250 L1440,356 Z" fill="url(#gcWave)"/>
+    </svg>
+
+  </div>
+  <div class="cert__glow" aria-hidden="true"></div>
+
+  <div class="cert__inner">
+
+    <div class="cert__intro">
+      <h2 class="cert__heading" id="cert-heading">Därför kan du lita på oss</h2>
+      <p class="cert__text">Behöriga elektriker, registrerat företag och försäkrat arbete.</p>
+    </div>
+
+    <div class="cert__marks">
+      <a class="cert__mark cert__mark--in"
+         href="https://www.in.se/hitta-installator/" target="_blank" rel="noopener noreferrer">
+        <img src="assets/img/installatorsforetagen.svg" alt="Installatörsföretagen" width="721" height="188" loading="lazy" decoding="async">
+      </a>
+      <a class="cert__mark cert__mark--esv"
+         href="https://www.elsakerhetsverket.se/kollaelforetaget/foretagsregister/?foretag=12047521" target="_blank" rel="noopener noreferrer">
+        <img src="assets/img/elsakerhetsverket.svg" alt="Elsäkerhetsverket" width="113" height="113" loading="lazy" decoding="async">
+      </a>
+      <a class="cert__mark cert__mark--id06"
+         href="https://id06.se/" target="_blank" rel="noopener noreferrer">
+        <img src="assets/img/id06.svg" alt="ID06" width="159" height="63" loading="lazy" decoding="async">
+      </a>
+      <a class="cert__mark cert__mark--th"
+         href="https://www.trygghansa.se/" target="_blank" rel="noopener noreferrer">
+        <img src="assets/img/trygg-hansa.svg" alt="Trygg-Hansa" width="178" height="106" loading="lazy" decoding="async">
+      </a>
+    </div>
+
+  </div>
+</section>
+<!-- ==================== /BLOCKET ==================== -->
+
+<script>
+  document.querySelectorAll('.rev__btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.rev__btn').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true');
+      document.querySelector('.cert').setAttribute('data-bg', b.dataset.set);
+    });
+  });
+</script>
+</body>
+</html>

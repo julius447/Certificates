@@ -1,0 +1,189 @@
+/* ===========================================================================
+   Certificates v2 — tillitsblock
+   Ägardirektiv 2026-08-06: riktning A (samma grid, större kort), INGA etiketter,
+   normaliserade logohöjder, 4 märken i 2×2, egna vågor, behåll färg + höjd + bredd.
+   =========================================================================== */
+
+/* BLOCKETS TOTALHÖJD ÄR LÅST (ägardirektiv) — 354,4px @1440, som dagens 354,58px.
+   För att ändå få STÖRRE kort växlas sektionens luft mot kortyta: den lodräta
+   paddingen går från --apspace-2xl (79,2px) till --apspace-xl (56px), vilket
+   frigör 46,4px till innehållet. Korten växer 90 → 113px (+26%) utan att
+   blocket blir en pixel högre. */
+.cert{
+  --cert-pad-y:var(--apspace-xl);
+  position:relative;
+  overflow:hidden;                      /* vågen kan aldrig sticka ut */
+  display:flex;
+  align-items:center;
+  padding:var(--cert-pad-y) var(--apspace-xl);
+  margin:var(--space-l) 0;
+  background-image:linear-gradient(90deg,var(--cert-navy),var(--cert-teal));
+  isolation:isolate;
+}
+
+/* --- bakgrundslager ------------------------------------------------------ */
+/* Vågen ligger som en SVG med preserveAspectRatio="none" och 100% × 100%.
+   Det är HELA fixen för "kantiga linjer": den gamla vågen var 1193×568 och
+   visades i en 1193×319-ruta med object-fit:cover, vilket klippte bort ~124px
+   uppe och nere — alltså exakt vågkammen. Här kan ingenting klippas. */
+.cert__bg{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+.cert__bg svg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+}
+.cert__bg svg{display:none}
+.cert[data-bg="a"] .cert-bg-a,
+.cert[data-bg="b"] .cert-bg-b,
+.cert[data-bg="c"] .cert-bg-c{display:block}
+
+/* mjuk ljusglugg bakom logotypklustret — lyfter de vita korten från bakgrunden */
+.cert__glow{
+  position:absolute;
+  z-index:1;
+  right:-6%;
+  top:50%;
+  width:62%;
+  height:150%;
+  transform:translateY(-50%);
+  pointer-events:none;
+  background:radial-gradient(ellipse at 55% 50%,
+    rgba(255,255,255,.10) 0%,
+    rgba(255,255,255,.04) 38%,
+    rgba(255,255,255,0) 70%);
+}
+
+/* --- innehåll ------------------------------------------------------------ */
+.cert__inner{
+  position:relative;
+  z-index:2;
+  width:100%;
+  max-width:var(--container-width);
+  margin-inline:auto;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:var(--apspace-m);
+}
+
+.cert__intro{
+  flex:1 1 0;
+  min-width:0;
+  color:#fff;
+}
+.cert__heading{
+  margin:0;
+  font-size:var(--aptext-xl);
+  font-weight:400;
+  line-height:1.3;
+  color:#fff;
+  letter-spacing:-.01em;
+}
+.cert__text{
+  margin:var(--apspace-xs) 0 0;
+  font-size:var(--aptext-m);
+  font-weight:300;
+  line-height:1.7;
+  color:#fff;
+  max-width:38ch;
+  text-wrap:balance;                    /* jämnar ut raderna — inga ensamma ord */
+}
+
+/* --- märkesgriden -------------------------------------------------------- */
+.cert__marks{
+  flex:1 1 0;
+  min-width:0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.cert__mark{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:var(--cert-card-h,113px);
+  padding:16px 24px;
+  background:var(--white);
+  border-radius:var(--apradius-l);
+  text-decoration:none;
+  box-shadow:0 2px 10px rgba(9,11,50,.10), 0 12px 34px rgba(9,11,50,.10);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.cert__mark:hover,
+.cert__mark:focus-visible{
+  transform:translateY(-2px);
+  box-shadow:0 4px 14px rgba(9,11,50,.13), 0 18px 44px rgba(9,11,50,.14);
+}
+.cert__mark:focus-visible{outline:2px solid #fff;outline-offset:3px}
+
+/* OPTISK NORMALISERING (kärnan i uppdraget).
+   De fyra lockuperna har vitt skilda proportioner:
+     Installatörsföretagen 3,83:1 · Elsäkerhetsverket 1,00:1 · ID06 2,52:1 · Trygg-Hansa 1,68:1
+   Att sätta samma HÖJD gör den kvadratiska ESV-loggan dubbelt så tung som IN.
+   Att sätta samma BREDD gör tvärtom IN till en tunn strimma.
+   Därför sätts höjden per logotyp, avvägd mot lockupens bredd så att den
+   optiska massan blir jämn. Ett värde per logga — enkelt att finjustera. */
+.cert__mark img{
+  width:auto;
+  max-width:100%;
+  object-fit:contain;
+  height:var(--lh);
+}
+.cert__mark--in   {--lh:42px}   /* 3,83:1 → 161×42  yta 6754 */
+.cert__mark--esv  {--lh:72px}   /* 1,00:1 →  72×72  yta 5184 */
+.cert__mark--id06 {--lh:50px}   /* 2,52:1 → 126×50  yta 6309 */
+.cert__mark--th   {--lh:58px}   /* 1,68:1 →  97×58  yta 5649 */
+/* optisk spridning max→min: 26% (var 51% vid ren höjdnormalisering) */
+
+/* ===========================================================================
+   MOBIL — layoutspråket från dagens block behålls medvetet:
+   centrerad text, staplat, samma kortstil. Bara innehållet ändras (4 märken).
+   =========================================================================== */
+@media (max-width:780px){
+  /* mobilen behåller dagens lodräta luft (--apspace-2xl) — där finns inget
+     höjdproblem att lösa, och layoutspråket ska vara oförändrat */
+  .cert{--cert-pad-y:var(--apspace-2xl)}
+  .cert__inner{
+    flex-direction:column;
+    align-items:center;
+    gap:var(--apspace-l);
+  }
+  .cert__intro{
+    flex:none;
+    width:100%;
+    text-align:center;
+  }
+  .cert__text{
+    max-width:34ch;
+    margin-inline:auto;
+    line-height:1.6;
+  }
+  .cert__marks{
+    flex:none;
+    width:100%;
+    gap:12px;
+  }
+  .cert__mark{
+    height:var(--cert-card-h-mobile,96px);
+    padding:12px 14px;
+  }
+  /* samma optiska avvägning, nedskalad till mobilkortets bredd (~160px) */
+  .cert__mark--in   {--lh:32px}
+  .cert__mark--esv  {--lh:56px}
+  .cert__mark--id06 {--lh:38px}
+  .cert__mark--th   {--lh:44px}
+  .cert__glow{width:100%;right:auto;left:0;height:60%;top:70%}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .cert__mark{transition:none}
+  .cert__mark:hover{transform:none}
+}

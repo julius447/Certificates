@@ -1,0 +1,59 @@
+/* ---------------------------------------------------------------------------
+   tokens.css — RIKTIGA Ampy-tokens, ordagrant från ampy.se
+   Hämtade ur <style id="core-framework-frontend-inline"> + bricks-color-palettes.
+   Inga uppfunna värden. Samma ap*-skala som resten av sajten.
+   --------------------------------------------------------------------------- */
+
+@font-face{font-display:swap;font-family:"Outfit";src:url("../fonts/Outfit-VariableFont_wght.woff2")format("woff2-variations");font-weight:100;font-style:normal;}
+@font-face{font-display:swap;font-family:"Outfit";src:url("../fonts/Outfit-VariableFont_wght.woff2")format("woff2-variations");font-weight:200;font-style:normal;}
+@font-face{font-display:swap;font-family:"Outfit";src:url("../fonts/Outfit-VariableFont_wght.woff2")format("woff2-variations");font-weight:300;font-style:normal;}
+@font-face{font-display:swap;font-family:"Outfit";src:url("../fonts/Outfit-VariableFont_wght.woff2")format("woff2-variations");font-weight:400;font-style:normal;}
+@font-face{font-display:swap;font-family:"Outfit";src:url("../fonts/Outfit-VariableFont_wght.woff2")format("woff2-variations");font-weight:500;font-style:normal;}
+@font-face{font-display:swap;font-family:"Outfit";src:url("../fonts/Outfit-VariableFont_wght.woff2")format("woff2-variations");font-weight:600;font-style:normal;}
+@font-face{font-display:swap;font-family:"Outfit";src:url("../fonts/Outfit-VariableFont_wght.woff2")format("woff2-variations");font-weight:700;font-style:normal;}
+
+html{font-size:62.5%}
+
+:root{
+  /* Ampy färgkanon */
+  --apmidnight-blue:#090b32;
+  --apteal-core:#00a991;
+  --appure-white:#fff;
+  --white:hsl(0 0% 100%);
+  --color-2:hsl(216 100% 98%);
+  /* blockets gradientpar — ÄNDRAS INTE (ägardirektiv: färgkombinationen behålls) */
+  --cert-navy:#090b32;
+  --cert-teal:#5eb1bf;
+
+  /* space-skalan, ordagrant */
+  --apspace-4xs:clamp(0.52rem,calc(-0.03vw + 0.53rem),0.49rem);
+  --apspace-3xs:clamp(0.66rem,calc(0.05vw + 0.64rem),0.7rem);
+  --apspace-2xs:clamp(0.82rem,calc(0.18vw + 0.76rem),0.99rem);
+  --apspace-xs:clamp(1.02rem,calc(0.39vw + 0.9rem),1.4rem);
+  --apspace-s:clamp(1.28rem,calc(0.73vw + 1.05rem),1.98rem);
+  --apspace-m:clamp(1.6rem,calc(1.25vw + 1.2rem),2.8rem);
+  --apspace-l:clamp(2rem,calc(2.04vw + 1.35rem),3.96rem);
+  --apspace-xl:clamp(2.5rem,calc(3.23vw + 1.47rem),5.6rem);
+  --apspace-2xl:clamp(3.13rem,calc(4.99vw + 1.53rem),7.92rem);
+
+  /* typskalan, ordagrant */
+  --aptext-xs:clamp(1rem,calc(0.21vw + 0.93rem),1.2rem);
+  --aptext-s:clamp(1.2rem,calc(0.21vw + 1.13rem),1.4rem);
+  --aptext-sm:clamp(1.4rem,calc(0.21vw + 1.33rem),1.6rem);
+  --aptext-m:clamp(1.6rem,calc(0.21vw + 1.53rem),1.8rem);
+  --aptext-mm:clamp(1.8rem,calc(0.21vw + 1.73rem),2rem);
+  --aptext-xl:clamp(2.4rem,calc(0.83vw + 2.13rem),3.2rem);
+
+  /* radie, ordagrant */
+  --apradius-s:clamp(0.6rem,calc(0.21vw + 0.53rem),0.8rem);
+  --apradius-m:clamp(1rem,calc(0.21vw + 0.93rem),1.2rem);
+  --apradius-l:clamp(1.6rem,calc(0.42vw + 1.47rem),2rem);
+
+  --space-l:clamp(3.00rem, calc(3.00rem + 0.0067 * (100vw - 380px)), 3.60rem);
+  --container-width:1280px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:"Outfit";font-weight:300;font-size:var(--aptext-sm);
+     color:rgb(54,54,54);background:var(--color-2);-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
