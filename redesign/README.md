@@ -4,8 +4,8 @@ Granska: **https://julius447.github.io/Certificates/redesign/**
 Baslinjen (1:1-klonen av dagens block) ligger kvar orörd på `/Certificates/`.
 
 **Allt är låst** (ägarbeslut 2026-08-06): bakgrund B · Strömfält, rubriken
-"Behörigheten bakom varje jobb", brödtexten och dess radbrytning, fyra märken i
-2×2. A- och C-bakgrunderna samt copy-alternativen finns i git-historiken
+"Behörigheten bakom varje jobb", brödtexten "Över 3000 gånger om året ringer en
+av våra egna elektriker på en dörr." och dess radbrytning, fyra märken i 2×2. A- och C-bakgrunderna samt copy-alternativen finns i git-historiken
 (`178bfa0` respektive `359ed7e`).
 
 ---
@@ -19,7 +19,7 @@ Baslinjen (1:1-klonen av dagens block) ligger kvar orörd på `/Certificates/`.
 | Kortproportion | 1,25:1 | **2,09:1** |
 | Synligt logotypbläck | 14–40 px högt | **28–70 px**, optiskt utjämnat |
 | Rubrik | h3 "Certifikat och partners", 32 px | **h2** "Behörigheten bakom varje jobb", **36 px** — sajtens norm |
-| Brödtext | 143 tecken, 4 rader på mobil, 14,12 px | **78 tecken, 2 rader**, styrd brytning, 16,12 px |
+| Brödtext | 143 tecken, 4 rader på mobil, 14,12 px | **70 tecken, 2 rader**, styrd brytning, 16,12 px |
 | Blockets höjd | 354,58 px | **354 px** — oförändrad |
 | Gradient | `90deg #090b32 → #5eb1bf` | **identisk** |
 | Vågen | 1193×568 klippt till 1193×319 → kantig | **egen, kan aldrig klippas** |
@@ -116,8 +116,8 @@ kontrolleras blockhöjd, kortstorlek, antal rubrikrader, brödtextens radbrytnin
 och om någon logotyp klipps:
 
 - Blockhöjden är **exakt 354 px** på 1280–1920 px.
-- Den låsta radbrytningen håller i **samtliga 23 bredder** — rad 1 alltid längre
-  än rad 2, aldrig brytning mitt i "behörig elektriker".
+- Den låsta radbrytningen håller i **samtliga 23 bredder** — identisk i alla,
+  rad 1 alltid längre än rad 2, och "egna elektriker" hålls alltid ihop.
 - **Noll klippta logotyper** i hela spannet.
 - Rubriken är **en rad från 1100 px och uppåt**. Där den bryter (901–1000 px och
   under 430 px) är raderna balanserade — inga änkor.
@@ -129,6 +129,7 @@ Fyra defekter hittades och stängdes under svepen:
 | Trygg-Hansa klipptes 155 → 126 px i bandet 781–905 px | brytpunkten höjd 780 → 900 px |
 | Kort på 344 × 96 px (3,6:1) runt 780 px | tak återinfört i mobilgrenen |
 | Den låsta radbrytningen föll vid 375/360 px | sidopadding 18 px under 389 px |
+| 34ch bröt "våra egna / elektriker" med rad 1 exakt på maxbredden | 32ch, ±1ch marginal |
 | Rubriken bröt med änkan "jobb" (379 px mot 63 px) vid 901–1000 px | `text-wrap:balance` på rubriken |
 
 **390 px renderar oförändrat** — ditt godkännande står kvar.
