@@ -119,15 +119,17 @@ och om någon logotyp klipps:
 - Den låsta radbrytningen håller i **samtliga 23 bredder** — rad 1 alltid längre
   än rad 2, aldrig brytning mitt i "behörig elektriker".
 - **Noll klippta logotyper** i hela spannet.
-- Rubriken är en rad överallt utom vid 360 px, där den bryts balanserat i två.
+- Rubriken är **en rad från 1100 px och uppåt**. Där den bryter (901–1000 px och
+  under 430 px) är raderna balanserade — inga änkor.
 
-Tre defekter hittades och stängdes under svepet:
+Fyra defekter hittades och stängdes under svepen:
 
 | Defekt | Åtgärd |
 |---|---|
 | Trygg-Hansa klipptes 155 → 126 px i bandet 781–905 px | brytpunkten höjd 780 → 900 px |
 | Kort på 344 × 96 px (3,6:1) runt 780 px | tak återinfört i mobilgrenen |
 | Den låsta radbrytningen föll vid 375/360 px | sidopadding 18 px under 389 px |
+| Rubriken bröt med änkan "jobb" (379 px mot 63 px) vid 901–1000 px | `text-wrap:balance` på rubriken |
 
 **390 px renderar oförändrat** — ditt godkännande står kvar.
 
