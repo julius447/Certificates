@@ -28,3 +28,9 @@ jobs:
           path: .
       - id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          # GitHubs CDN-publicering har tagit 7-10+ min för det här repot och
+          # slog i standardgränsen (600000 ms) med "Timeout reached, aborting!".
+          # Uppladdningen var klar; det var väntan på publiceringen som föll.
+          timeout: 1800000
+          error_count: 20
