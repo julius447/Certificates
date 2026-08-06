@@ -97,9 +97,14 @@
 }
 
 /* --- märkesgriden -------------------------------------------------------- */
+/* Korten ska vara mindre avlånga (ägardirektiv 2026-08-06). Höjden är låst av
+   blockhöjden, så proportionen justeras via BREDDEN: griden får ett tak på
+   514px, vilket ger kort på 249×113 = 2,20:1 istället för 305×113 = 2,70:1.
+   Överskottet går till textkolumnen. */
 .cert__marks{
   flex:1 1 0;
   min-width:0;
+  max-width:514px;
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:16px;
@@ -110,7 +115,7 @@
   align-items:center;
   justify-content:center;
   height:var(--cert-card-h,113px);
-  padding:16px 24px;
+  padding:16px 20px;
   background:var(--white);
   border-radius:var(--apradius-l);
   text-decoration:none;
@@ -137,11 +142,12 @@
   object-fit:contain;
   height:var(--lh);
 }
-.cert__mark--in   {--lh:42px}   /* 3,83:1 → 161×42  yta 6754 */
-.cert__mark--esv  {--lh:72px}   /* 1,00:1 →  72×72  yta 5184 */
-.cert__mark--id06 {--lh:50px}   /* 2,52:1 → 126×50  yta 6309 */
-.cert__mark--th   {--lh:58px}   /* 1,68:1 →  97×58  yta 5649 */
-/* optisk spridning max→min: 26% (var 51% vid ren höjdnormalisering) */
+.cert__mark--in   {--lh:40px}   /* 3,83:1 → 153×40  yta 6128 */
+.cert__mark--esv  {--lh:70px}   /* 1,00:1 →  70×70  yta 4900 */
+.cert__mark--id06 {--lh:48px}   /* 2,52:1 → 121×48  yta 5808 */
+.cert__mark--th   {--lh:56px}   /* 1,68:1 →  94×56  yta 5264 */
+/* optisk spridning max→min: 22%. Bredaste loggan (IN) fyller 73% av
+   kortets innerbredd — luft kvar på sidorna även i det smalare kortet. */
 
 /* ===========================================================================
    MOBIL — layoutspråket från dagens block behålls medvetet:
@@ -169,6 +175,7 @@
   .cert__marks{
     flex:none;
     width:100%;
+    max-width:none;      /* desktoptaket på 514px gäller INTE här — mobilen är godkänd och rörs inte */
     gap:12px;
   }
   .cert__mark{
