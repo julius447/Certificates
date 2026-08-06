@@ -102,12 +102,13 @@
      är ritad med max-width, och balance skulle dela raderna jämnt igen. */
   text-wrap:balance;
 }
-/* Radbrytningen är RITAD, inte överlämnad till text-wrap:balance (som delar
-   raderna jämnt utan hänsyn till var frasen tål att brytas). Måttet är satt i
-   ch så att brytpunkten följer med när clamp() ändrar typsnittsstorleken:
-   rad 1 "Över 3000 gånger om året ringer en av våra"
-   rad 2 "egna elektriker på en dörr."
-   Samma brytning i ALLA bredder, och "egna elektriker" hålls ihop. */
+/* Två meningar, så radbrytningen kräver olika verktyg i de två lägena.
+   DESKTOP: 34ch ger tre rader, 358/398/278px, utan änka. (32ch gav fyra rader
+   med "ryggen." ensamt på 61px; 33ch gav en kort mittrad, 358/295/381.)
+   MOBIL: containern är smalare än textmåttet, så där blir det fyra rader
+   oavsett ch-värde och alltid med samma 55px-änka. Där gör text-wrap:balance
+   jobbet i stället: fyra jämna rader, 242/226/205/249px, ingen änka.
+   Se mobilgrenen längre ned. */
 /* Brödtexten ligger redan rätt mot sajten: --aptext-m = 18px desktop /
    16,12px mobil, w300 — samma som testimonial- och main-cta-sektionerna.
    OBS: det GAMLA blocket renderade 14,12px på mobil, minst på hela sidan,
@@ -119,11 +120,7 @@
   font-weight:300;
   line-height:1.7;
   color:#fff;
-  max-width:32ch;   /* 34ch bröt efter "egna" och skilde adjektivet från sitt
-                       substantiv ("våra egna / elektriker"), dessutom med rad 1
-                       exakt på maxbredden, alltså en pixel från att flippa.
-                       32ch bryter efter "våra" i stället. 31, 32 och 33ch ger
-                       alla samma brytning, så värdet har ±1ch marginal. */
+  max-width:34ch;
 }
 /* 1,7 gjorde de två raderna till en jämnt spridd stapel: gapet rubrik→text var
    bara 1,63× gapet mellan textraderna, så rubriken ägde inte sin paragraf.
@@ -247,6 +244,11 @@
     max-width:34ch;
     margin-inline:auto;
     line-height:1.6;
+    /* Här är containern smalare än textmåttet, så texten blir fyra rader
+       oavsett ch-värde och alltid med "ryggen." ensamt på 55px sist.
+       balance jämnar ut de fyra i stället: 242/226/205/249px, ingen änka.
+       På desktop görs samma jobb av 34ch, och där ska balance INTE på. */
+    text-wrap:balance;
   }
   .cert__marks{
     flex:none;
