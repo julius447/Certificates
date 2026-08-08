@@ -102,13 +102,13 @@
      är ritad med max-width, och balance skulle dela raderna jämnt igen. */
   text-wrap:balance;
 }
-/* Två meningar, så radbrytningen kräver olika verktyg i de två lägena.
-   DESKTOP: 34ch ger tre rader, 358/398/278px, utan änka. (32ch gav fyra rader
-   med "ryggen." ensamt på 61px; 33ch gav en kort mittrad, 358/295/381.)
-   MOBIL: containern är smalare än textmåttet, så där blir det fyra rader
-   oavsett ch-värde och alltid med samma 55px-änka. Där gör text-wrap:balance
-   jobbet i stället: fyra jämna rader, 242/226/205/249px, ingen änka.
-   Se mobilgrenen längre ned. */
+/* KRAV: max två rader på desktop, max tre på mobil (ägardirektiv).
+   Texten är därför breddad. 44ch gav visserligen två rader men nästan lika
+   långa (484/458); 48ch ger 527/415, alltså en tydligt längre förstarad.
+   46 och 48ch bryter identiskt, så värdet ligger mitt i sitt säkra spann.
+   Mobilen klarar tre rader utan åtgärd: 320/264/255px, fallande och utan änka.
+   Mellanbandet 901-1069px är för smalt för två rader OCH ger änkan "ryggen."
+   på 59px; där tar text-wrap:balance över (se regeln längre ned). */
 /* Brödtexten ligger redan rätt mot sajten: --aptext-m = 18px desktop /
    16,12px mobil, w300 — samma som testimonial- och main-cta-sektionerna.
    OBS: det GAMLA blocket renderade 14,12px på mobil, minst på hela sidan,
@@ -120,7 +120,14 @@
   font-weight:300;
   line-height:1.7;
   color:#fff;
-  max-width:34ch;
+  max-width:48ch;
+}
+/* Mellanbandet: textkolumnen är för smal för två rader, och vanlig brytning
+   lämnar "ryggen." ensamt på 59px. balance ger rena rader i stället
+   (307/287/314). Taket är satt till 1099 och inte 1069 där brytningen faktiskt
+   vänder, så en pixels renderingsskillnad inte kan återinföra änkan. */
+@media (min-width:901px) and (max-width:1099px){
+  .cert__text{text-wrap:balance}
 }
 /* 1,7 gjorde de två raderna till en jämnt spridd stapel: gapet rubrik→text var
    bara 1,63× gapet mellan textraderna, så rubriken ägde inte sin paragraf.
@@ -244,11 +251,9 @@
     max-width:34ch;
     margin-inline:auto;
     line-height:1.6;
-    /* Här är containern smalare än textmåttet, så texten blir fyra rader
-       oavsett ch-värde och alltid med "ryggen." ensamt på 55px sist.
-       balance jämnar ut de fyra i stället: 242/226/205/249px, ingen änka.
-       På desktop görs samma jobb av 34ch, och där ska balance INTE på. */
-    text-wrap:balance;
+    /* Ingen balance här. Med den kortare texten ger vanlig brytning tre rader
+       i fallande form (320/264/255) utan änka, vilket är snyggare än vad
+       balance ger (284/265/290, där sista raden blir längst). */
   }
   .cert__marks{
     flex:none;

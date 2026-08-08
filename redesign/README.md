@@ -5,8 +5,8 @@ Baslinjen (1:1-klonen av dagens block) ligger kvar orörd på `/Certificates/`.
 
 **Allt är låst** (ägarbeslut 2026-08-06): bakgrund B · Strömfält, rubriken
 "Behörigheten bakom varje jobb", brödtexten "Över 3000 gånger om året ringer en
-av våra elektriker på en dörr. Varje gång med legitimation, behörighet och
-försäkring i ryggen." och dess radbrytning, fyra märken i 2×2. A- och C-bakgrunderna samt copy-alternativen finns i git-historiken
+av våra elektriker på en dörr. Varje gång med legitimation och försäkring i
+ryggen." och dess radbrytning, fyra märken i 2×2. A- och C-bakgrunderna samt copy-alternativen finns i git-historiken
 (`178bfa0` respektive `359ed7e`).
 
 ---
@@ -20,7 +20,7 @@ försäkring i ryggen." och dess radbrytning, fyra märken i 2×2. A- och C-bakg
 | Kortproportion | 1,25:1 | **2,09:1** |
 | Synligt logotypbläck | 14–40 px högt | **28–70 px**, optiskt utjämnat |
 | Rubrik | h3 "Certifikat och partners", 32 px | **h2** "Behörigheten bakom varje jobb", **36 px** — sajtens norm |
-| Brödtext | 143 tecken, 4 rader på mobil, 14,12 px | **129 tecken**, 3 rader desktop / 4 mobil, inga änkor, 16,12 px |
+| Brödtext | 143 tecken, 4 rader på mobil, 14,12 px | **117 tecken**, **2 rader desktop / 3 mobil**, inga änkor, 16,12 px |
 | Blockets höjd | 354,58 px | **354 px** — oförändrad |
 | Gradient | `90deg #090b32 → #5eb1bf` | **identisk** |
 | Vågen | 1193×568 klippt till 1193×319 → kantig | **egen, kan aldrig klippas** |
@@ -117,7 +117,9 @@ kontrolleras blockhöjd, kortstorlek, antal rubrikrader, brödtextens radbrytnin
 och om någon logotyp klipps:
 
 - Blockhöjden är **exakt 354 px** på 1280–1920 px.
-- **Inga änkor i någon av de 23 bredderna.** Kortaste sista rad är 204 px.
+- Brödtexten är **2 rader från 1070 px och uppåt** (527/415 px, en mening per
+  rad) och **3 rader på mobil** (320/264/255 px, fallande).
+- **Inga änkor i någon av de 24 bredderna.** Kortaste sista rad är 168 px.
 - **Noll klippta logotyper** i hela spannet.
 - Rubriken är **en rad från 1100 px och uppåt**. Där den bryter (901–1000 px och
   under 430 px) är raderna balanserade — inga änkor.
@@ -129,7 +131,7 @@ Fyra defekter hittades och stängdes under svepen:
 | Trygg-Hansa klipptes 155 → 126 px i bandet 781–905 px | brytpunkten höjd 780 → 900 px |
 | Kort på 344 × 96 px (3,6:1) runt 780 px | tak återinfört i mobilgrenen |
 | Den låsta radbrytningen föll vid 375/360 px | sidopadding 18 px under 389 px |
-| Tvåmeningstexten gav änkan "ryggen." på 61 px (desktop) / 55 px (mobil) | 34ch på desktop; `text-wrap:balance` i mobilgrenen |
+| Tvåmeningstexten gav änkan "ryggen." på 59 px i bandet 901–1069 px | `text-wrap:balance` i det bandet, tak satt till 1099 px för marginal |
 | Rubriken bröt med änkan "jobb" (379 px mot 63 px) vid 901–1000 px | `text-wrap:balance` på rubriken |
 
 **390 px renderar oförändrat** — ditt godkännande står kvar.
